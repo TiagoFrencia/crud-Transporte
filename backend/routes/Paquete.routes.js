@@ -24,8 +24,8 @@ router.post('/create', (req, res) => {
         codigo: req.body.codigo,
         descripcion: req.body.descripcion,
         destinatario: req.body.destinatario,
-        direccion: req.body.direccion
-
+        direccion: req.body.direccion,
+        codigo_provincia: req.body.codigo_provincia
     }).then(paquete => {
         res.json(paquete);
     }).catch(err => {

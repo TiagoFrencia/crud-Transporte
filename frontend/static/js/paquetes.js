@@ -6,19 +6,24 @@ function listarPaquetes() {
         .then(data => data.json())
         .then(paquetes => {
             listPaquetes = paquetes;
-            listPaquetes.map((paquete, i) => {
+            listPaquetes.map((paquete) => {
+               
                 let row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${paquete.codigo}</td>
                     <td>${paquete.descripcion}</td>
                     <td>${paquete.destinatario}</td>
                     <td>${paquete.direccion}</td>
+                    <td>${paquete.provincium.nombre}</td>
+                    <td>${paquete.provincium.codigo_provincia}</td>
+
                     <td>
                         <a href="/paquetes/editar/${paquete.codigo}" class="btn btn-warning">Editar</a>
                         <button class="btn btn-danger" onclick="eliminarPaquete(${paquete.codigo})">Eliminar</button>
                     </td>
                 `;
                 document.getElementById('paquetes').appendChild(row);
+                
             })
         }).catch(error => console.log(error)); 
 }
@@ -29,12 +34,12 @@ function obtenerDatosPaquete(){
     let descripcion = document.getElementById("descripcion").value;
     let destinatario = document.getElementById("destinatario").value;
     let direccion = document.getElementById("direccion").value;
-    
-    if(codigo.length == 0 || descripcion.length == 0 || destinatario.length == 0 || direccion.length == 0){
+    let codigo_provincia = document.getElementById("codigo_provincia").value;
+    if(codigo.length == 0 || descripcion.length == 0 || destinatario.length == 0 || direccion.length == 0 || codigo_provincia.length == 0){
         return false;
     }else{
 
-    let data = {codigo: codigo, descripcion: descripcion, destinatario: destinatario, direccion: direccion}
+    let data = {codigo: codigo, descripcion: descripcion, destinatario: destinatario, direccion: direccion, codigo_provincia: codigo_provincia};
     return data;
     }
 }
@@ -101,6 +106,7 @@ function obtenerPaquete(){
             document.getElementById("descripcion").value = data.descripcion;
             document.getElementById("destinatario").value = data.destinatario;
             document.getElementById("direccion").value = data.direccion;
+            loadSelect(codigo_provincia = data.codigo_provincia); 
         })
         .catch(error => console.log(error));
 }
@@ -122,4 +128,34 @@ function editarPaquete(){
         .then(response => console.log('Success', response))
         .then(location.href = "/paquetes");
     console.log("se edito el paquete");
+}
+
+
+function getProvincia(provincias, provincia){
+    let url = `http://localhost:3000/provincias`;
+    fetch(url, {})
+        .then(response => {return response.json()})
+        .then(data => {
+            let html = `<option value="null">Seleccione una provincia</option>`;
+            let select =''
+            data.map(item => {
+                if(item.codigo_provincia == provincia){
+                    select = 'selected'
+                }else {
+                    select = ''
+                }
+                html += `<option value="${item.codigo_provincia}" ${select}>${item.nombre}</option>`;
+            });
+            provincias.innerHTML = html;
+        })
+}
+
+
+    
+
+
+function loadSelect(provincia = null){
+    const provincias = document.getElementById("codigo_provincia");
+    getProvincia(provincias, provincia);
+
 }

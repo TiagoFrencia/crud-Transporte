@@ -47,6 +47,13 @@
                         <input type="text" class="form-control" id="direccion" name="direccion" value=""
                             placeholder="Ingrese direccion del Paquete...">
                     </div>
+                    <div class="mb-3">
+
+                        <label for="codigo_provincia" class="form-label">Codigo Provincia</label>
+                        <select name="codigo_provincia" id="codigo_provincia" class="form-select">
+                        <option selected>Cargando...</option>
+                        </select>
+                    </div>
                     <button type="button" class="btn btn-primary" onclick="editarPaquete()">Editar</button>
                 </form>
             </div>
@@ -64,6 +71,7 @@
     <script type="text/javaScript">
         document.addEventListener("DOMContentLoaded", function(){
             obtenerPaquete();
+            loadSelect();
         })
     </script>
 </body>

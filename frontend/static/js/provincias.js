@@ -7,12 +7,13 @@ function listarProvincias() {
         .then(provincias => {
             listProvincias = provincias;
             listProvincias.map((provincia, i) => {
+                
                 let row = document.createElement("tr");
                 row.innerHTML = `
-                <td>${provincia.codigo_provincia}</td>
                 <td>${provincia.nombre}</td>
+                <td>${provincia.codigo_provincia}</td>
                 <td>
-                    <a href="/provincias/edit/${provincia.codigo_provincia}" class="btn btn-warning">Editar</a>
+                    <a href="/provincias/editar/${provincia.codigo_provincia}" class="btn btn-warning">Editar</a>
                     <button onclick="eliminarProvincia('${provincia.codigo_provincia}')" class="btn btn-danger">Eliminar</button>
                 </td>
                 `;
@@ -92,7 +93,7 @@ function obtenerProvincia(){
 function editarProvincia(){
     let codigo_provincia = getCodigo_Provincia();
     let provincia = obtenerDatosProvincia();
-    let url = `http://localhost:3000/provincias/${codigo_provincia}`;
+    let url = `http://localhost:3000/provincias/edit/${codigo_provincia}`;
     fetch(url, {
         method: 'PUT',
         body: JSON.stringify(provincia),

@@ -44,7 +44,14 @@
                         <label for="direccion" class="form-label">Direccion</label>
                         <input type="text" class="form-control" id="direccion" name="direccion">
                     </div>
+                    
+                    <div class="mb-3">
 
+                        <label for="codigo_provincia" class="form-label">Codigo Provincia</label>
+                        <select name="codigo_provincia" id="codigo_provincia" class="form-select">
+                        <option selected>Cargando...</option>
+                        </select>
+                    </div>
                     <button type="button" class="btn btn-primary" onclick="crearPaquete()">Crear</button>
                 </form>
             </div>
@@ -67,6 +74,11 @@
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
     <script src="/js/paquetes.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            loadSelect();
+        });
+    </script>
 </body>
 
 </html>
